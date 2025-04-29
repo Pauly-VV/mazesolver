@@ -30,7 +30,7 @@ def main():
     # cell2.draw_move(cell3, True)
 
     # #DRAW MAZE TEST
-    maze1 = Maze(0, 0, 5, 5, 100, 100, win)
+    maze1 = Maze(2, 2, 5, 5, 100, 100, win)
 
 
     win.waitforclose()
