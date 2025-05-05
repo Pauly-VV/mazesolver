@@ -14,6 +14,7 @@ class Cell():
         self.has_top_wall = True
         self.has_bottom_wall = True
         self.center = Point(((self._x1 + self._x2)/2),((self._y1 + self._y2)/2))
+        self.visited = False
 
     def draw(self):
         if self._win == None:
