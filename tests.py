@@ -35,6 +35,14 @@ class Tests(unittest.TestCase):
         self.assertEqual(m1.cells_list[0][0].has_top_wall, False)
         self.assertEqual(m1.cells_list[m1.num_cols - 1][m1.num_rows - 1].has_bottom_wall, False)
 
+    def test_reset_visited(self):
+        num_cols = 12
+        num_rows = 10
+        m1 = Maze(50, 50, num_rows, num_cols, 10, 10)
+        for col in m1.cells_list:
+            for cell in col:
+                self.assertEqual(cell.visited, False)
+
         
 
 if __name__ == "__main__":
