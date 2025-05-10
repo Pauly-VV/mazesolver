@@ -49,7 +49,7 @@ class Maze():
         if self.win == None:
             return
         self.win.redraw()
-        time.sleep(0.05)
+        time.sleep(0.02)
 
     def _break_entrance_and_exit(self):
         self.cells_list[0][0].has_top_wall = False
@@ -101,6 +101,42 @@ class Maze():
         for col in self.cells_list:
             for cell in col:
                 cell.visited = False
+
+    def solve(self):
+        return self._solve_r(0,0)
+
+    def _solve_r(self, i, j):
+        if (i == self.num_cols and j == self.num_rows) or (i == self.num_cols - 1 and j == self.num_rows) or (i == self.num_cols and j == self.num_rows - 1):
+            return True
+        
+        self._animate()
+        self.cells_list[i][j].visited = True
+        if (i == self.num_cols - 1 and j == self.num_rows - 1):
+            return True
+        
+        to_visit = []
+        if (i + 1) < (self.num_cols) and self.cells_list[i+1][j].visited == False and self.cells_list[i][j].has_right_wall == False:
+            to_visit.append((i + 1, j))
+        if (j + 1) < (self.num_rows) and self.cells_list[i][j+1].visited == False and self.cells_list[i][j].has_bottom_wall == False:
+            to_visit.append((i, j + 1))
+        if (i - 1) >= 0 and self.cells_list[i-1][j].visited == False and self.cells_list[i][j].has_left_wall == False:
+            to_visit.append((i - 1, j))
+        if (j - 1) >= 0 and self.cells_list[i][j-1].visited == False and self.cells_list[i][j].has_top_wall == False:
+            to_visit.append((i, j - 1))
+        
+        if to_visit == []:
+            return False
+
+        for cell_tuple in to_visit:
+            self.cells_list[i][j].draw_move(self.cells_list[cell_tuple[0]][cell_tuple[1]])
+            if self._solve_r(cell_tuple[0], cell_tuple[1]) == True:
+                return True
+            else:
+                self.cells_list[i][j].draw_move(self.cells_list[cell_tuple[0]][cell_tuple[1]], True)
+
+
+            
+
         
         
 
